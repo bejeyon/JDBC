@@ -1,0 +1,115 @@
+package com.myapp;//myapp 패키지
+
+import java.sql.Connection;//JDBC API 사용을 위한 인터페이스. createStatement()/preparedStatement()/collableStatement() 메소드 사용하여 Statement/preparedStatement 개체 참조 위함.
+import java.sql.PreparedStatement;//SQL문을 실행하고 결과를 반환하기 위해 제공되는 Statement 인터페이스의 하위 인터페이스로, 미리 컴파일된 SQL문에 인수를 전달하도록 허용하는 역할을 함.
+import java.sql.ResultSet;//Statement에서 executeQuery()메소드나 반환된
+import java.sql.SQLException;/*드라이버 메소드, 데이터베이스에 액세스하는 메소드 또는 데이터베이스 연결을 가져오려는 시도 중 하나에 발생하는 오류에서 발생. 
+사용자 이름이나 암호 정보가 잘못되어 데이터 베이스에 연결할 수 없거나 데이터베이스가 오프라인일 경우, SQL 쿼리에 포함되지 않은 열 이름에 액세스를 시도할 경우*/
+
+public class AccountDAO implements AccountDAOInterface {//DAOInterface를 상속받아 구체적으로 구현
+
+	private Connection conn = DBConnection.getConnection();//DBConnection의 static getConnection() 메소드로부터 Connection conn을 반환받아 Connection conn에 대입.
+	
+	//insert
+	public void accountInsert(AccountVO newAccount) {
+		String sql = "insert into hr.accounts( ano,owner,balance) values(?, ?, ?) ";
+
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, newAccount.getAno());
+			preparedStatement.setString(2, newAccount.getOwner());
+			preparedStatement.setDouble(3, newAccount.getBalance());
+			preparedStatement.executeUpdate();
+			System.out.println("hr.accounts 입력 성공");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}//end try
+	}//end accountInsert
+
+	//select all
+	public void accountList() {
+		String sql = "select * from hr.accounts";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			ResultSet resultSet =  preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				System.out.print(resultSet.getString(1) + "   ");
+				System.out.print(resultSet.getString(2) + "   ");
+				System.out.println(resultSet.getDouble(3));
+			}//end while
+			System.out.println();
+		} catch (SQLException e) {
+			System.out.println("에러 발생!");
+			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}//end try
+	}//end accountList
+
+	//입금 deposit
+	public void accountPlusUpdate(AccountVO account) {
+		String  sql= "UPDATE hr.accounts set balance = (balance+?) where ano=?";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setDouble(1, account.getBalance());
+			preparedStatement.setString(2, account.getAno());			
+			preparedStatement.executeUpdate();
+			System.out.println("입금 성공");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}//end accountPlusUpdate
+
+	//출금 withdraw
+	public void accountMinusUpdate(AccountVO account) {
+		String  sql= "UPDATE hr.accounts set balance = (balance - ?) where ano=?";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setDouble(1, account.getBalance());
+			preparedStatement.setString(2, account.getAno());			
+			preparedStatement.executeUpdate();
+			System.out.println("출금 성공");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}//end accountMinusUpdate
+	
+
+	//계좌 확인
+	public boolean accountFindOne(String ano) {
+		boolean isExist = false;
+		String sql = "select count(*)  from hr.accounts where ano = ? ";
+		
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, ano);
+			ResultSet resultSet =preparedStatement.executeQuery();
+			resultSet.next();
+			
+			int result = resultSet.getInt(1);
+			if (result ==1 ) {
+				isExist = true;
+			} else {
+				isExist = false;
+			}//end if
+		} catch (SQLException e) {
+			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+			System.out.println();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}//end try		
+		return isExist;
+	}//end accountFindOne
+
+}//end class

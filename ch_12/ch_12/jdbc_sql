@@ -1,0 +1,4 @@
+select * from tab;
+select * from HR.DEPARTMENTS;
+select * from HR.EMPLOYEES;
+select * from 

@@ -1,0 +1,45 @@
+package ch_12;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class test_2 {
+
+	public static void main(String[] args) throws SQLException {
+		/**
+		 * 자바에서 오라클 연동 테스트
+		 * - 주요 오라클 관련 정보
+		 *   SID : xepdb1, PORT : 1521
+		 *   HOST : 127.0.0.1
+		 *   USER : hr/hr
+		 *   URL : jdbc:oracle:thin:@localhost:1521/xepdb1
+		 *   DRIVER : oracle.jdbc.driver.OracleDriver
+		 */
+
+		String driver = "oracle.jdbc.driver.OracleDriver";
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+		String id = "hr";
+		String pw = "hr";
+		Connection conn = null;
+		ResultSet rs = null; 
+		Statement stmt = "SELECT * FROM hr.departments";
+		String sql = 
+		
+		try {
+			Class.forName(driver);
+			conn = DriverManager.getConnection(url, id, pw);
+			stmt = conn.createStatement();
+			
+			System.out.println(conn);
+			rs = stmt.executeQuery(sql);
+			System.out.println(rs);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//end try
+
+	}//end main
+
+}//end class
