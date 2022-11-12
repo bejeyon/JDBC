@@ -12,7 +12,7 @@ public class AccountDAO implements AccountDAOInterface {//DAOInterface를 상속
 	
 	//insert
 	public void accountInsert(AccountVO newAccount) {/*AccountVO 클래스의 객체를 newAccount 매개변수로 받아서 AccountVO 객체의 필드값 3개를 getter로 받아 
-	query의 insert문 ? 세곳에 계좌번호,계좌주,계좌잔고값을 넣어서 insert query 실행하는 멤버 메소드*/
+	query의 insert문 ? 3곳에 계좌번호,계좌주,계좌잔고값을 넣어서 insert query 실행하는 멤버 메소드*/
 		String sql = "insert into hr.accounts( ano,owner,balance) values(?, ?, ?) ";//PreparedStatemen에 인수로 넣을 query를 문자열로 저장.
 
 		try {
@@ -25,13 +25,13 @@ public class AccountDAO implements AccountDAOInterface {//DAOInterface를 상속
 			preparedStatement.setDouble(3, newAccount.getBalance());/*매개변수로 받은 AccountVO 객체 newAccount의 getBalance() 메소드 실행하여 
 			입력받은 객체의 필드값인 계좌잔고를 preparedStatement의 3번째 ?에 대입*/
 			preparedStatement.executeUpdate();//preparedStatement의 insert query문 최종 실행.
-			System.out.println("hr.accounts 입력 성공");//예외 발생 없이 성공할 시 성공했다는 메세지 출력
+			System.out.println("hr.accounts 입력 성공");//예외 발생 없이 성공할 시 성공했다는 메세지 출력.
 		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드, executeUpdate() 메소드 실행시 필수 예외.
 			드라이버 메소드, 데이터베이스에 액세스하는 메소드 또는 데이터베이스 연결을 가져오려는 시도 중 하나에 발생하는 오류에서 발생. 
 			사용자 이름이나 암호 정보가 잘못되어 데이터 베이스에 연결할 수 없거나 데이터베이스가 오프라인일 경우, SQL 쿼리에 포함되지 않은 열 이름에 액세스를 시도할 경우 catch로 예외 처리*/
-			e.printStackTrace();//예외가 발생한 내역 추척하여 출력
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
 		} catch (Exception e) {//SQLException 외의 예외 상황 발생 대비.
-			e.printStackTrace();
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
 		} finally {
 		}//end try
 	}//end accountInsert
@@ -61,47 +61,59 @@ public class AccountDAO implements AccountDAOInterface {//DAOInterface를 상속
 				Retrieves the value of the designated column in the current row of this ResultSet object as a double in the Java programming language.*/
 			}//end while
 			System.out.println();
-		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드, executeUpdate() 메소드 실행시 필수 예외.
+		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드 실행시 필수 예외.
 			드라이버 메소드, 데이터베이스에 액세스하는 메소드 또는 데이터베이스 연결을 가져오려는 시도 중 하나에 발생하는 오류에서 발생. 
 			사용자 이름이나 암호 정보가 잘못되어 데이터 베이스에 연결할 수 없거나 데이터베이스가 오프라인일 경우, SQL 쿼리에 포함되지 않은 열 이름에 액세스를 시도할 경우 catch로 예외 처리*/
 			System.out.println("에러 발생!");
 			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());//SQL에 뜬 예외 메세지와 JAVA에 뜬 예외 메세지 문자열로 출력
 		} catch (Exception e) {//SQLException 외의 예외 상황 발생 대비.
-			e.printStackTrace();
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
 		} finally {
 		}//end try
 	}//end accountList
 
 	//입금 deposit
-	public void accountPlusUpdate(AccountVO account) {
-		String  sql= "UPDATE hr.accounts set balance = (balance+?) where ano=?";
+	public void accountPlusUpdate(AccountVO account) {/*AccountVO 클래스의 객체를 account 매개변수로 받아서 AccountVO 객체의 필드값 2개를 getter로 받아
+	query의 update문 ? 2곳에 계좌번호,계좌잔고값을 넣어서 update query 실행하는 멤버 메소드*/
+		String  sql= "UPDATE hr.accounts set balance = (balance+?) where ano=?";//PreparedStatemen에 인수로 넣을 query를 문자열로 저장.
 		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setDouble(1, account.getBalance());
-			preparedStatement.setString(2, account.getAno());			
-			preparedStatement.executeUpdate();
-			System.out.println("입금 성공");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);/*query를 String sql로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
+			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
+			preparedStatement.setDouble(1, account.getBalance());/*매개변수로 받은 AccountVO 객체 account의 getBalance() 메소드 실행하여
+			입력받은 객체의 필드값인 추가할 계좌잔고를 preparedStatement의 1번째 ?에 대입하여 계좌잔고 +연산으로 계좌잔고 늘림*/
+			preparedStatement.setString(2, account.getAno());/*매개변수로 받은 AccountVO 객체 account의 getAno() 메소드 실행하여
+			입력받은 객체의 필드값인 계좌번호를 preparedStatement의 2번째 ?에 대입*/
+			preparedStatement.executeUpdate();//preparedStatement의 update query문 최종 실행.
+			System.out.println("입금 성공");//예외 발생 없이 성공할 시 성공했다는 메세지 출력.
+		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드, executeUpdate() 메소드 실행시 필수 예외.
+			드라이버 메소드, 데이터베이스에 액세스하는 메소드 또는 데이터베이스 연결을 가져오려는 시도 중 하나에 발생하는 오류에서 발생.
+			사용자 이름이나 암호 정보가 잘못되어 데이터 베이스에 연결할 수 없거나 데이터베이스가 오프라인일 경우, SQL 쿼리에 포함되지 않은 열 이름에 액세스를 시도할 경우 catch로 예외 처리*/
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
+		} catch (Exception e) {//SQLException 외의 예외 상황 발생 대비.
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
 		} finally {
 		}
 	}//end accountPlusUpdate
 
 	//출금 withdraw
-	public void accountMinusUpdate(AccountVO account) {
-		String  sql= "UPDATE hr.accounts set balance = (balance - ?) where ano=?";
+	public void accountMinusUpdate(AccountVO account) {/*AccountVO 클래스의 객체를 account 매개변수로 받아서 AccountVO 객체의 필드값 2개를 getter로 받아
+	query의 update문 ? 2곳에 계좌번호,계좌잔고값을 넣어서 update query 실행하는 멤버 메소드*/
+		String  sql= "UPDATE hr.accounts set balance = (balance - ?) where ano=?";//PreparedStatemen에 인수로 넣을 query를 문자열로 저장.
 		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setDouble(1, account.getBalance());
-			preparedStatement.setString(2, account.getAno());			
-			preparedStatement.executeUpdate();
-			System.out.println("출금 성공");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);/*query를 String sql로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
+			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
+			preparedStatement.setDouble(1, account.getBalance());/*매개변수로 받은 AccountVO 객체 account의 getBalance() 메소드 실행하여
+			입력받은 객체의 필드값인 추가할 계좌잔고를 preparedStatement의 1번째 ?에 대입하여 계좌잔고 -연산으로 계좌잔고 줄임*/
+			preparedStatement.setString(2, account.getAno());/*매개변수로 받은 AccountVO 객체 account의 getAno() 메소드 실행하여
+			입력받은 객체의 필드값인 계좌번호를 preparedStatement의 2번째 ?에 대입*/
+			preparedStatement.executeUpdate();//preparedStatement의 update query문 최종 실행.
+			System.out.println("출금 성공");//예외 발생 없이 성공할 시 성공했다는 메세지 출력.
+		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드, executeUpdate() 메소드 실행시 필수 예외.
+			드라이버 메소드, 데이터베이스에 액세스하는 메소드 또는 데이터베이스 연결을 가져오려는 시도 중 하나에 발생하는 오류에서 발생.
+			사용자 이름이나 암호 정보가 잘못되어 데이터 베이스에 연결할 수 없거나 데이터베이스가 오프라인일 경우, SQL 쿼리에 포함되지 않은 열 이름에 액세스를 시도할 경우 catch로 예외 처리*/
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
+		} catch (Exception e) {//SQLException 외의 예외 상황 발생 대비.
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
 		} finally {
 		}
 	}//end accountMinusUpdate
