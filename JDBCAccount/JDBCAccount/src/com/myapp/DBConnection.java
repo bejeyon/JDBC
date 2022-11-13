@@ -27,14 +27,14 @@ public class DBConnection {
 	static {//static 초기화 블록 -> DBConnection의 정적 필드인 private static Connection conn;을 초기화하기 위함.
 		// 환경설정 파일을 읽어오기 위한 객체 생성
 		Properties properties  = new Properties();//load() 메소드 사용하여 설정파일 읽어오기 위함. The Properties class represents a persistent set of properties.
-		Reader reader;//properties 객체의 load() 메소드의 인자로 사용 위함.
+		Reader reader;//properties 객체의 load() 메소드의 인자로 사용 위함. 바이트 기반이 아닌 문자 기반의 스트림을 제공하기 위해 InputStream이 아닌 Reader를 사용.
 		try {
 			reader = new FileReader("lib/oracle.properties");  // 읽어올 파일 지정
-			/*java.lang.Object
+			/*입력 대상 중 properties라는 File을 읽어오므로 FileReader 스트림을 개방하여 Reader형으로 다형성.
+			java.lang.Object
 				java.io.Reader
 					java.io.InputStreamReader
 						java.io.FileReader
-			
 			Fields inherited from class java.io.Reader
 			lock*/
 			properties.load(reader);                           // 설정 파일 로딩하기
