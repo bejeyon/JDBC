@@ -20,7 +20,7 @@ public class AppMain extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		System.out.println(
 				Thread.currentThread().getName()+": start() 호출");
-		primaryStage.show();   
+		primaryStage.show();   // 반드시 start에서 해야 됨.
 	}//end start
 	
 	@Override

@@ -30,7 +30,7 @@ public class AppMain extends Application {
 		
 		
 		primaryStage.setTitle("AppMain");		
-		primaryStage.setScene(scene);	//scene2	
+		primaryStage.setScene(scene2);	//scene2	
 		primaryStage.show();					
 	}//end start
 	
