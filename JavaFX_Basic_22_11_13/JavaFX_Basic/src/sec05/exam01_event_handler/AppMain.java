@@ -198,7 +198,7 @@ public class AppMain extends Application {
 			Property description:
 			The amount of horizontal space between each child in the hbox.
 		*/
-		Button btn1 = new Button("버튼1");/*
+		Button btn1 = new Button("버튼1");/*Button(String text)	Creates a button with the specified text as its label.
 		public class Button
 			extends ButtonBase
 			A simple button control. The button control can contain text and/or a graphic. A button control has three different modes
@@ -226,8 +226,8 @@ public class AppMain extends Application {
 				Invoked when a specific event of the type for which this handler is registered happens.
 				Parameters:
 				event - the event which occurred
-				System.out.println("버튼1 클릭");
 			*/
+				System.out.println("버튼1 클릭");
 			}//end handle
 		});//end setOnAction
 		
@@ -235,17 +235,82 @@ public class AppMain extends Application {
 		//람다식으로 이벤트 처리
 		btn2.setOnAction(event->System.out.println("버튼2 클릭"));
 		
-		root.getChildren().addAll(btn1, btn2);
-		Scene scene = new Scene(root);
-		
-		primaryStage.setTitle("AppMain");
-		primaryStage.setScene(scene);
+		root.getChildren().addAll(btn1, btn2);/*
+		getChildren
+			public ObservableList<Node> getChildren()
+			Description copied from class: Parent
+			Gets the list of children of this Parent.
+			See the class documentation for Node for scene graph structure restrictions on setting a Parent's children list. If these restrictions are violated by a change to the list of children, the change is ignored and the previous value of the children list is restored. An IllegalArgumentException is thrown in this case.
+			
+			If this Parent node is attached to a Scene attached to a Window that is showning (Window.isShowing()), then its list of children must only be modified on the JavaFX Application Thread. An IllegalStateException is thrown if this restriction is violated.
+			
+			Note to subclasses: if you override this method, you must return from your implementation the result of calling this super method. The actual list instance returned from any getChildren() implementation must be the list owned and managed by this Parent. The only typical purpose for overriding this method is to promote the method to be public.
+			
+			Overrides:
+			getChildren in class Parent
+			Returns:
+			modifiable list of children.
+			
+		addAll
+			boolean addAll(E... elements)
+			A convenient method for var-arg adding of elements.
+			Parameters:
+			elements - the elements to add
+			Returns:
+			true (as specified by Collection.add(E))
+		*/
+		Scene scene = new Scene(root);//Scene(Parent root)	Creates a Scene for a specific root Node.
+		primaryStage.setTitle("AppMain");/*
+		setTitle
+			public final void setTitle(String value)
+			Sets the value of the property title.
+			Property description:
+			Defines the title of the Stage.
+			Default value:
+			empty string
+		*/
+		primaryStage.setScene(scene);/*
+		setScene
+			public final void setScene(Scene value)
+			Specify the scene to be used on this stage.
+			Overrides:
+			setScene in class Window
+		*/
 		//종료시 이벤트 등록
-		primaryStage.setOnCloseRequest(event->System.out.println("종료 클릭"));
-		primaryStage.show();
+		primaryStage.setOnCloseRequest(event->System.out.println("종료 클릭"));/*Stage Methods inherited from class javafx.stage.Window
+		setOnCloseRequest
+			public final void setOnCloseRequest(EventHandler<WindowEvent> value)
+			Sets the value of the property onCloseRequest.
+			Property description:
+			Called when there is an external request to close this Window. The installed event handler can prevent window closing by consuming the received event.
+		*/
+		primaryStage.show();/*
+		show
+			public final void show()
+			Description copied from class: Window
+			Attempts to show this Window by setting visibility to true
+			Overrides:
+			show in class Window
+		*/
 	}//end start
 	
 	public static void main(String[] args) {
-		launch(args);
+		launch(args);/*
+		aunch
+			public static void launch(String... args)
+			Launch a standalone application. This method is typically called from the main method(). It must not be called more than once or an exception will be thrown. This is equivalent to launch(TheClass.class, args) where TheClass is the immediately enclosing class of the method that called launch. It must be a subclass of Application or a RuntimeException will be thrown.
+			The launch method does not return until the application has exited, either via a call to Platform.exit or all of the application windows have been closed.
+			
+			Typical usage is:
+			
+			 public static void main(String[] args) {
+			     Application.launch(args);
+			 }
+			 
+			Parameters:
+			args - the command line arguments passed to the application. An application may get these parameters using the getParameters() method.
+			Throws:
+			IllegalStateException - if this method is called more than once.
+		*/
 	}//end main
 }//end class
