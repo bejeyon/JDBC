@@ -19,7 +19,7 @@ public class RootController implements Initializable {
 	
 	//이벤트 함수
 	public void handleNew(ActionEvent e) {
-		textArea.appendText("New\n");
+		textArea.appendText("New\n");//텍스트 추가 메소드
 	}
 	
 	public void handleOpen(ActionEvent e) {
