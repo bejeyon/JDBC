@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.ScatterChart?>
+
+<!-- 컨트롤러 설정 -->
+<HBox xmlns:fx="http://javafx.com/fxml" fx:controller="application.RootController"
+	prefHeight="700" prefWidth="1500" >
+   <children>
+      
+      <ScatterChart  fx:id="sChart">
+      <xAxis>      
+          <CategoryAxis  />
+        </xAxis>
+        <yAxis>
+          <NumberAxis  />
+        </yAxis>
+      </ScatterChart>
+      
+      <BarChart fx:id="barChart" >
+      
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <AreaChart fx:id="areaChart">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </AreaChart>
+   </children>
+</HBox>
