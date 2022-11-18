@@ -10,20 +10,47 @@ import UTIL.DBConnection;
 public class KioskDAO implements KioskDAOInterface {
 	
 	private Connection conn = DBConnection.getConnection();
-
+	
+	int orderRow;
+	
 	public void orderInsert(KioskDTO newKioskOrderDTO) {
-		String sql = "insert into T4.order_list(order_id, menu_id, menu_name, unit_price, num_of_sales) values(TO_CHAR(SYSDATE, 'YYYYDDMM')||order_id_seq.NEXTVAL||?, ?, ?, ?, ?) ";
+		String sqlFind = "SELECT order_id FROM T4.order_list ORDER BY order_id DESC ";
+		
+		try {
+			PreparedStatement preparedStatementFind = conn.prepareStatement(sqlFind);/*query를 String sqlFind로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
+			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
+			ResultSet resultSet =  preparedStatementFind.executeQuery();//preparedStatement의 select query문 최종 실행하여 반환되는 테이블을 ResultSet resultSet에 대입하여 저장.
+			resultSet.next();
+			String orderNum = resultSet.getString(1);
+			if(orderNum == null|| orderNum.isEmpty()) {
+				orderRow = 1;
+			}
+			else {
+				orderRow = Integer.parseInt(orderNum.substring(8,11));
+				System.out.println();
+			}
+		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드 실행 시 필수 예외.
+			드라이버 메소드, 데이터베이스에 액세스하는 메소드 또는 데이터베이스 연결을 가져오려는 시도 중 하나에 발생하는 오류에서 발생. 
+			사용자 이름이나 암호 정보가 잘못되어 데이터 베이스에 연결할 수 없거나 데이터베이스가 오프라인일 경우, SQL 쿼리에 포함되지 않은 열 이름에 액세스를 시도할 경우 catch로 예외 처리*/
+			System.out.println("에러 발생!");
+			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());//SQL에 뜬 예외 메세지와 JAVA에 뜬 예외 메세지 문자열로 출력
+		} catch (Exception e) {//SQLException 외의 예외 상황 발생 대비.
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
+		} finally {
+		}//end try
+		
+		String sql = "insert into T4.order_list(order_id, menu_id, menu_name, unit_price, num_of_sales) values(TO_CHAR(SYSDATE, 'YYYYMMDD')||LPAD(?, 3, '0')||?, ?, ?, ?, ?) ";
+		//TO_CHAR(SYSDATE, 'YYYYDDMM')||order_id_seq.NEXTVAL||
+		//TO_CHAR(SYSDATE, 'YYYYDDMM')+order_id_seq.NEXTVAL+
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);/*query를 String sql로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
 			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
-			preparedStatement.setString(1, newKioskOrderDTO.getMenu_id());
-			preparedStatement.setString(2, newKioskOrderDTO.getMenu_id());/*매개변수로 받은 AccountVO 객체 newAccount의 getAno() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌번호를 preparedStatement의 1번째 ?에 대입*/
-			preparedStatement.setString(3, newKioskOrderDTO.getMenu_name());/*매개변수로 받은 AccountVO 객체 newAccount의 getOwner() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌주를 preparedStatement의 2번째 ?에 대입*/
-			preparedStatement.setInt(4, newKioskOrderDTO.getUnit_price());/*매개변수로 받은 AccountVO 객체 newAccount의 getBalance() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌잔고를 preparedStatement의 3번째 ?에 대입*/
-			preparedStatement.setInt(5, newKioskOrderDTO.getNum_of_sales());
+			preparedStatement.setString(1, ""+(++orderRow));
+			preparedStatement.setString(2, newKioskOrderDTO.getMenu_id());
+			preparedStatement.setString(3, newKioskOrderDTO.getMenu_id());
+			preparedStatement.setString(4, newKioskOrderDTO.getMenu_name());
+			preparedStatement.setInt(5, newKioskOrderDTO.getUnit_price());
+			preparedStatement.setInt(6, newKioskOrderDTO.getNum_of_sales());
 			preparedStatement.executeUpdate();//preparedStatement의 insert query문 최종 실행.
 			System.out.println("T4.ORDER_LIST 입력 성공");//예외 발생 없이 성공할 시 성공했다는 메세지 출력.
 		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드, executeUpdate() 메소드 실행시 필수 예외.
@@ -38,15 +65,13 @@ public class KioskDAO implements KioskDAOInterface {
 	public void getMenu(String menu_id, String menu_name, int unit_cost, int unit_price) {
 		
 	}
-	public void setStock(int consumption_stock, int ingredient_id) {
+	public void setStock(KioskDTO setStockDTO) {
 		String sql = "update T4.stock set available_stock = (available_stock - ?) where ingredient_id = ? ";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);/*query를 String sql로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
 			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
-			preparedStatement.setInt(1, consumption_stock);/*매개변수로 받은 AccountVO 객체 newAccount의 getAno() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌번호를 preparedStatement의 1번째 ?에 대입*/
-			preparedStatement.setInt(2, ingredient_id);/*매개변수로 받은 AccountVO 객체 newAccount의 getOwner() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌주를 preparedStatement의 2번째 ?에 대입*/
+			preparedStatement.setInt(1, setStockDTO.getAvailable_stock());
+			preparedStatement.setInt(2, setStockDTO.getIngredient_id());
 			preparedStatement.executeUpdate();//preparedStatement의 insert query문 최종 실행.
 			System.out.println("T4.STOCK 입력 성공");//예외 발생 없이 성공할 시 성공했다는 메세지 출력.
 		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드, executeUpdate() 메소드 실행시 필수 예외.
@@ -59,19 +84,13 @@ public class KioskDAO implements KioskDAOInterface {
 		}//end try	
 	}
 	public void setSettlement(KioskDTO setSettlementDTO) {
-		String sql = "insert into T4.settlement(menu_id, menu_name, num_of_sales, unit_cost, unit_price, profit_margin) values(?, ?, ?, ?, ?, ?) ";
+		String sql = "update T4.settlement set num_of_sales = (num_of_sales + ?), profit_margin = (profit_margin + ?) where menu_id = ? ";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);/*query를 String sql로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
 			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
-			preparedStatement.setString(1, setSettlementDTO.getMenu_id());
-			preparedStatement.setString(2, setSettlementDTO.getMenu_name());/*매개변수로 받은 AccountVO 객체 newAccount의 getAno() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌번호를 preparedStatement의 1번째 ?에 대입*/
-			preparedStatement.setInt(3, setSettlementDTO.getNum_of_sales());/*매개변수로 받은 AccountVO 객체 newAccount의 getOwner() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌주를 preparedStatement의 2번째 ?에 대입*/
-			preparedStatement.setInt(4, setSettlementDTO.getUnit_cost());/*매개변수로 받은 AccountVO 객체 newAccount의 getBalance() 메소드 실행하여 
-			입력받은 객체의 필드값인 계좌잔고를 preparedStatement의 3번째 ?에 대입*/
-			preparedStatement.setInt(5, setSettlementDTO.getUnit_price());
-			preparedStatement.setInt(6, setSettlementDTO.getProfit_margin());
+			preparedStatement.setInt(1, setSettlementDTO.getNum_of_sales());
+			preparedStatement.setInt(2, setSettlementDTO.getUnit_price() - setSettlementDTO.getUnit_cost());
+			preparedStatement.setString(3, setSettlementDTO.getMenu_id());
 			preparedStatement.executeUpdate();//preparedStatement의 insert query문 최종 실행.
 			System.out.println("T4.SETTLEMENT 입력 성공");//예외 발생 없이 성공할 시 성공했다는 메세지 출력.
 		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드, executeUpdate() 메소드 실행시 필수 예외.
@@ -83,9 +102,7 @@ public class KioskDAO implements KioskDAOInterface {
 		} finally {
 		}//end try
 	}
-	public void memberInsert(String guest_name, String guest_phone) {
-		
-	}
+
 	public void setMember(KioskDTO setMemberDTO) {
 		String sql = "insert into T4.member(guest_name, guest_phone) values(?, ?) ";
 		try {
@@ -106,19 +123,18 @@ public class KioskDAO implements KioskDAOInterface {
 	}
 	public boolean memberFindOne(String guest_phone) {
 		boolean isExist = false;//계좌번호일치 여부를 저장할 변수 isExist. 기본값 false.
-		String sql = "select count(*) from hr.member where guest_phone = ? ";//where절에 계좌번호값이 사용자가 입력한 값과 일치하는 조건을 걸고 count(*) 함수 실행하는 select문 query
-		
+		String sql = "select count(*) from T4.member where guest_phone = ? ";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);/*query를 String sql로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
 			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
-			preparedStatement.setString(1, guest_phone);//매개변수로 받은 사용자가 입력한 값인 String 객체 ano를 preparedStatement의 1번째 ?에 대입하여 select query 실행
+			preparedStatement.setString(1, guest_phone);//매개변수로 받은 사용자가 입력한 값인 String 객체 guest_phone를 preparedStatement의 1번째 ?에 대입하여 select query 실행
 			ResultSet resultSet =preparedStatement.executeQuery();//preparedStatement의 select query문 최종 실행하여 결과값으로 반환된 ResultSet을 resultSet에 대입
 			resultSet.next();//resultSet의 첫번째 행 맨 앞에 커서를 갖다놓고 읽어들일 준비함.
 			
 			int result = resultSet.getInt(1);//select문으로부터 1열의 count(*) 함수 결과값을 받아 int result에 대입하여 저장.
-			if (result ==1 ) {//result값이 1이면 count(*) 함수 결과값이 1이므로 일치하는 계좌번호가 단 1개 있다는 결과가 나온 것.
+			if (result ==1 ) {//result값이 1이면 count(*) 함수 결과값이 1이므로 일치하는 휴대전화번호가 단 1개 있다는 결과가 나온 것.
 				isExist = true;//따라서 isExist는 true값으로 변경.
-			} else {//result값이 1이 아니면 count(*) 함수 결과값이 1이 아니므로 일치하는 계좌번호가 존재하지 않다는 결과가 나온 것.
+			} else {//result값이 1이 아니면 count(*) 함수 결과값이 1이 아니므로 일치하는 휴대전화번호가 존재하지 않다는 결과가 나온 것.
 				isExist = false;//따라서 isExist는 그대로 false값 유지.
 			}//end if
 		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, ResultSet 클래스 객체의 next() 메소드, getInt() 메소드 실행 시 필수 예외.
@@ -137,5 +153,6 @@ public class KioskDAO implements KioskDAOInterface {
 		}//end try		
 		return isExist;//최종적으로 일치하는 계좌가 있으면 1->true 반환, 없으면 0->false 반환.
 	}
+
 
 }

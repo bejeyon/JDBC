@@ -9,11 +9,10 @@ public interface KioskDAOInterface {
 	
 	void orderInsert(KioskDTO newKioskOrderDTO);
 	void getMenu(String menu_id, String menu_name, int unit_cost, int unit_price);
-	void setStock(int consumption_stock, int ingredient_id);
+	void setStock(KioskDTO setStockDTO);
 	void setSettlement(KioskDTO setSettlementDTO);
-	void memberInsert(String guest_name, String guest_phone);
 	void setMember(KioskDTO setMemberDTO);
-	boolean memberFindOne(String guest_name, String guest_phone);
+	boolean memberFindOne(String guest_phone);
 	
 	//String menu_id, String menu_name, int unit_price, int num_of_sales
 	//int ingredient_id, String ingredient_name, int unit_cost, int available_stock

@@ -107,8 +107,17 @@ public class KioskDTO {
 	public void setProfit_margin(int profit_margin) {
 		this.profit_margin = profit_margin;
 	}
-	public KioskDTO() {
+	public KioskDTO(String menu_id) {
 		super();
+		this.menu_id = menu_id;
+	}
+	public KioskDTO(String order_id, String menu_id, String menu_name, int unit_price, int num_of_sales) {
+		super();
+		this.menu_id = menu_id;
+		this.menu_name = menu_name;
+		this.unit_price = unit_price;
+		this.order_id = order_id;
+		this.num_of_sales = num_of_sales;
 	}
 	public KioskDTO(String menu_id, String menu_name, int unit_price, int num_of_sales) {
 		super();
@@ -139,4 +148,10 @@ public class KioskDTO {
 		this.guest_name = guest_name;
 		this.guest_phone = guest_phone;
 	}
+	public KioskDTO(int available_stock, int ingredient_id) {
+		super();
+		this.ingredient_id = ingredient_id;
+		this.available_stock = available_stock;
+	}
+	
 }
