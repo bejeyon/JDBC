@@ -22,22 +22,46 @@ public class MemberController implements Initializable {
 	@FXML private Button viewpoint;
 	
 	public void handleJoinmemberAction(ActionEvent event) {
-		String guest_name = name.getText();
-		String guest_phone = phonenumber.getText();
-		
-		KioskDAO kioskDAO = new KioskDAO();
-		KioskDTO setMemberDTO = new KioskDTO(guest_name, guest_phone);
-		
-		if(!(kioskDAO.memberFindOne(guest_phone))) {
-			kioskDAO.setMember(setMemberDTO);
-		}
-		else {
+		if(name.getText().trim().isEmpty()) {
 			Platform.runLater(new Runnable() {
 				@Override
 				public void run() {		
-					memberlist.setText("이미 가입되어 있는 회원입니다.");
+					memberlist.setText("공백은 입력이 되지 않습니다.\n제대로된 값을 입력하세요.");
 				}
 			});
+		}
+		else if(phonenumber.getText().trim().isEmpty()) {
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {		
+					memberlist.setText("공백은 입력이 되지 않습니다.\n제대로된 값을 입력하세요.");
+				}
+			});
+		}
+		else {
+			String guest_name = name.getText();
+			String guest_phone = phonenumber.getText();
+			
+			KioskDAO kioskDAO = new KioskDAO();
+			KioskDTO setMemberDTO = new KioskDTO(guest_name, guest_phone);
+			
+			if(!(kioskDAO.memberFindOne(guest_phone))) {
+				kioskDAO.setMember(setMemberDTO);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						memberlist.setText(guest_name+"님, 가입되었습니다.");
+					}
+				});
+			}
+			else {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {		
+						memberlist.setText("이미 가입되어 있는 회원입니다.");
+					}
+				});
+			}
 		}
 	}
 	
@@ -69,7 +93,6 @@ public class MemberController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 

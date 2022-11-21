@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -8,138 +10,146 @@
 
 <AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.RootController">
    <children>
-      <Label alignment="CENTER" prefHeight="200.0" prefWidth="200.0" text="아메리카노">
+      <Label fx:id="americanostock" alignment="CENTER" layoutX="31.0" layoutY="165.0" prefHeight="120.0" prefWidth="200.0" text="아메리카노">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="americano" alignment="CENTER_RIGHT" layoutX="200.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="americano" alignment="CENTER_RIGHT" layoutX="231.0" layoutY="165.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutX="400.0" prefHeight="200.0" prefWidth="200.0" text="카페라떼">
+      <Label fx:id="cafelattestock" alignment="CENTER" layoutX="431.0" layoutY="165.0" prefHeight="120.0" prefWidth="200.0" text="카페라떼">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="cafelatte" alignment="CENTER_RIGHT" layoutX="600.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="cafelatte" alignment="CENTER_RIGHT" layoutX="631.0" layoutY="165.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" text="에스프레소">
+      <Label fx:id="espressostock" alignment="CENTER" layoutX="31.0" layoutY="334.0" prefHeight="120.0" prefWidth="200.0" text="에스프레소">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="espresso" alignment="CENTER_RIGHT" layoutX="200.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="espresso" alignment="CENTER_RIGHT" layoutX="231.0" layoutY="334.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutX="400.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" text="우유">
+      <Label fx:id="milkstock" alignment="CENTER" layoutX="431.0" layoutY="334.0" prefHeight="120.0" prefWidth="200.0" text="우유">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="milk" alignment="CENTER_RIGHT" layoutX="600.0" layoutY="200.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="milk" alignment="CENTER_RIGHT" layoutX="631.0" layoutY="334.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutY="400.0" prefHeight="200.0" prefWidth="200.0" text="모닝빵">
+      <Label fx:id="breadstock" alignment="CENTER" layoutX="31.0" layoutY="500.0" prefHeight="120.0" prefWidth="200.0" text="모닝빵">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="bread" alignment="CENTER_RIGHT" layoutX="200.0" layoutY="400.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="bread" alignment="CENTER_RIGHT" layoutX="231.0" layoutY="500.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutX="400.0" layoutY="400.0" prefHeight="200.0" prefWidth="200.0" text="조각케잌">
+      <Label fx:id="stock" alignment="CENTER" layoutX="431.0" layoutY="500.0" prefHeight="120.0" prefWidth="200.0" text="조각케잌">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="cake" alignment="CENTER_RIGHT" layoutX="600.0" layoutY="400.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="cake" alignment="CENTER_RIGHT" layoutX="631.0" layoutY="500.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutY="600.0" prefHeight="200.0" prefWidth="200.0" text="쿠키">
+      <Label fx:id="cookiestock" alignment="CENTER" layoutX="31.0" layoutY="660.0" prefHeight="120.0" prefWidth="200.0" text="쿠키">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="cookie" alignment="CENTER_RIGHT" layoutX="200.0" layoutY="600.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="cookie" alignment="CENTER_RIGHT" layoutX="231.0" layoutY="660.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutX="400.0" layoutY="600.0" prefHeight="200.0" prefWidth="200.0" text="마카롱">
+      <Label fx:id="macaroonstock" alignment="CENTER" layoutX="431.0" layoutY="660.0" prefHeight="120.0" prefWidth="200.0" text="마카롱">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="macaroon" alignment="CENTER_RIGHT" layoutX="600.0" layoutY="600.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="macaroon" alignment="CENTER_RIGHT" layoutX="631.0" layoutY="660.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
             <Font size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutY="800.0" prefHeight="200.0" prefWidth="200.0" text="아이스티">
+      <Label fx:id="iceteastock" alignment="CENTER" layoutX="31.0" layoutY="820.0" prefHeight="120.0" prefWidth="200.0" text="아이스티">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="icetea" alignment="CENTER_RIGHT" layoutX="200.0" layoutY="800.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="icetea" alignment="CENTER_RIGHT" layoutX="231.0" layoutY="820.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
-            <Font size="64.0" />
+            <Font name="LG Smart UI SemiBold" size="64.0" />
          </font></TextField>
-      <Label alignment="CENTER" layoutX="400.0" layoutY="800.0" prefHeight="200.0" prefWidth="200.0" text="초코라떼">
+      <Label fx:id="chocolatelattestock" alignment="CENTER" layoutX="431.0" layoutY="820.0" prefHeight="120.0" prefWidth="200.0" text="초코라떼">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="chocolatelatte" alignment="CENTER_RIGHT" layoutX="600.0" layoutY="800.0" prefHeight="200.0" prefWidth="200.0" text="0">
+      <TextField fx:id="chocolatelatte" alignment="CENTER_RIGHT" layoutX="631.0" layoutY="820.0" prefHeight="120.0" prefWidth="200.0" text="0">
          <font>
-            <Font size="64.0" />
+            <Font name="LG Smart UI SemiBold" size="64.0" />
          </font></TextField>
-      <Label fx:id="orderlist" alignment="CENTER" layoutX="900.0" prefHeight="300.0" prefWidth="500.0" text="주문내역">
+      <Button fx:id="order" layoutX="874.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleOrderAction" prefHeight="100.0" prefWidth="236.0" text="주문하기">
          <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Button fx:id="order" layoutX="900.0" layoutY="300.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" onAction="#handleOrderAction" text="주문하기">
-         <font>
-            <Font size="36.0" />
+            <Font name="LG Smart UI SemiBold" size="36.0" />
          </font>
       </Button>
-      <Button fx:id="exit" layoutX="1200.0" layoutY="300.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" onAction="#handleExitAction" text="종료하기">
+      <Button fx:id="exit" layoutX="1145.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleExitAction" prefHeight="100.0" prefWidth="236.0" text="종료하기">
          <font>
-            <Font size="36.0" />
+            <Font name="LG Smart UI SemiBold" size="36.0" />
          </font>
       </Button>
-      <Label layoutX="900.0" layoutY="400.0" prefHeight="100.0" prefWidth="200.0" text="이름">
+      <Label fx:id="orderlist" alignment="CENTER" layoutX="874.0" layoutY="18.0" prefHeight="267.0" prefWidth="500.0" text="주문내역">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="name" alignment="CENTER_RIGHT" layoutX="900.0" layoutY="500.0" prefHeight="100.0" prefWidth="500.0">
+      <Label layoutX="874.0" layoutY="429.0" prefHeight="50.0" prefWidth="200.0" text="이름">
+         <font>
+            <Font name="LG Smart UI SemiBold" size="32.0" />
+         </font>
+      </Label>
+      <TextField fx:id="name" alignment="CENTER_RIGHT" layoutX="874.0" layoutY="502.0" prefHeight="100.0" prefWidth="500.0">
          <font>
             <Font size="32.0" />
          </font></TextField>
-      <Label layoutX="900.0" layoutY="600.0" prefHeight="100.0" prefWidth="200.0" text="휴대전화번호">
+      <Label layoutX="874.0" layoutY="626.0" prefHeight="50.0" prefWidth="200.0" text="휴대전화번호">
          <font>
-            <Font size="32.0" />
+            <Font name="LG Smart UI SemiBold" size="32.0" />
          </font>
       </Label>
-      <TextField fx:id="phonenumber" alignment="CENTER_RIGHT" layoutX="900.0" layoutY="700.0" prefHeight="100.0" prefWidth="500.0">
+      <TextField fx:id="phonenumber" alignment="CENTER_RIGHT" layoutX="874.0" layoutY="693.0" prefHeight="100.0" prefWidth="500.0">
          <font>
             <Font size="32.0" />
          </font></TextField>
-      <Button fx:id="savepoint" layoutX="900.0" layoutY="900.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" onAction="#handleSavepointAction" text="적립">
+      <Button fx:id="savepoint" layoutX="874.0" layoutY="840.0" mnemonicParsing="false" onAction="#handleSavepointAction" prefHeight="100.0" prefWidth="236.0" text="적립">
          <font>
-            <Font size="36.0" />
+            <Font name="LG Smart UI SemiBold" size="36.0" />
          </font>
       </Button>
-      <Button fx:id="viewpoint" layoutX="1200.0" layoutY="900.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="200.0" onAction="#handleViewpointAction" text="조회">
+      <Button fx:id="viewpoint" layoutX="1138.0" layoutY="840.0" mnemonicParsing="false" onAction="#handleViewpointAction" prefHeight="100.0" prefWidth="236.0" text="조회">
          <font>
-            <Font size="36.0" />
+            <Font name="LG Smart UI SemiBold" size="36.0" />
+         </font>
+      </Button>
+      <Button layoutX="61.0" layoutY="25.0" prefHeight="123.0" prefWidth="769.0" text="메뉴를 선택해주세요">
+         <font>
+            <Font name="LG Smart UI Bold" size="48.0" />
          </font>
       </Button>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </AnchorPane>

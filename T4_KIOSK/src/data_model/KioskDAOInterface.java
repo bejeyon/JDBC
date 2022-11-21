@@ -2,7 +2,8 @@ package data_model;
 
 public interface KioskDAOInterface {
 	void orderInsert(KioskDTO newKioskOrderDTO);
-	void getMenu(String menu_id, String menu_name, int unit_cost, int unit_price);
+	//void getMenu(String menu_id, String menu_name, int unit_cost, int unit_price);
+	int checkStock(KioskDTO checkStockDTO);
 	void setStock(KioskDTO setStockDTO);
 	void setSettlement(KioskDTO setSettlementDTO);
 	void setMember(KioskDTO setMemberDTO);

@@ -13,6 +13,8 @@ public class KioskMain extends Application {
 		
 		Parent root = FXMLLoader.load(getClass().getResource("Root.fxml"));
 		Scene scene = new Scene(root);
+		//css 등록
+		scene.getStylesheets().add(getClass().getResource("app.css").toString());
 		
 		primaryStage.setTitle("T4 cafe Kiosk");
 		primaryStage.setScene(scene);

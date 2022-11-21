@@ -12,9 +12,11 @@ public class KioskDAO implements KioskDAOInterface {
 	
 	private Connection conn = DBConnection.getConnection();
 	
-	int orderRow;
-	
+	@Override
 	public void orderInsert(KioskDTO newKioskOrderDTO) {
+		
+		int orderRow = 0;
+		
 		String sqlFind = "SELECT order_id FROM T4.order_list ORDER BY order_id DESC ";
 		
 		try {
@@ -63,9 +65,37 @@ public class KioskDAO implements KioskDAOInterface {
 		} finally {
 		}//end try	
 	}
-	public void getMenu(String menu_id, String menu_name, int unit_cost, int unit_price) {
-		
+	
+//	@Override
+//	public void getMenu(String menu_id, String menu_name, int unit_cost, int unit_price) {
+//		
+//	}
+	
+	@Override
+	public int checkStock(KioskDTO checkStockDTO) {
+		int available_stock = 0;
+		String sqlFind = "select available_stock FROM T4.stock where ingredient_id = ? ";
+		try {
+			PreparedStatement preparedStatementFind = conn.prepareStatement(sqlFind);/*query를 String sqlFind로 받아 Connection 객체 conn의 prepareStatement() 메소드의 매개변수로 넣어
+			PreparedStatement type 객체인 preparedStatement로 반환 대입*/
+			preparedStatementFind.setInt(1, checkStockDTO.getIngredient_id());
+			ResultSet resultSet =  preparedStatementFind.executeQuery();//preparedStatement의 select query문 최종 실행하여 반환되는 테이블을 ResultSet resultSet에 대입하여 저장.
+			resultSet.next();
+			available_stock = resultSet.getInt(1);
+		} catch (SQLException e) {/*PreparedStatement 클래스 객체의 setString() 메소드, setDouble() 메소드 실행 시 필수 예외.
+			드라이버 메소드, 데이터베이스에 액세스하는 메소드 또는 데이터베이스 연결을 가져오려는 시도 중 하나에 발생하는 오류에서 발생. 
+			사용자 이름이나 암호 정보가 잘못되어 데이터 베이스에 연결할 수 없거나 데이터베이스가 오프라인일 경우, SQL 쿼리에 포함되지 않은 열 이름에 액세스를 시도할 경우 catch로 예외 처리*/
+			System.out.println("에러 발생!");
+			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());//SQL에 뜬 예외 메세지와 JAVA에 뜬 예외 메세지 문자열로 출력
+		} catch (Exception e) {//SQLException 외의 예외 상황 발생 대비.
+			e.printStackTrace();//예외가 발생한 내역 추척하여 출력.
+		} finally {
+		}//end try
+		return available_stock;
 	}
+
+	
+	@Override
 	public void setStock(KioskDTO setStockDTO) {
 		String sql = "update T4.stock set available_stock = (available_stock - ?) where ingredient_id = ? ";
 		try {
@@ -84,6 +114,8 @@ public class KioskDAO implements KioskDAOInterface {
 		} finally {
 		}//end try	
 	}
+	
+	@Override
 	public void setSettlement(KioskDTO setSettlementDTO) {
 		String sql = "update T4.settlement set num_of_sales = (num_of_sales + ?), profit_margin = (profit_margin + ?) where menu_id = ? ";
 		try {
@@ -104,6 +136,7 @@ public class KioskDAO implements KioskDAOInterface {
 		}//end try
 	}
 
+	@Override
 	public void setMember(KioskDTO setMemberDTO) {
 		String sql = "insert into T4.view1(column1, column2) values(?, ?) ";
 		try {
@@ -122,6 +155,8 @@ public class KioskDAO implements KioskDAOInterface {
 		} finally {
 		}//end try
 	}
+	
+	@Override
 	public boolean memberFindOne(String guest_phone) {
 		boolean isExist = false;//계좌번호일치 여부를 저장할 변수 isExist. 기본값 false.
 		String sql = "select count(*) from T4.view1 where column2 = ? ";
@@ -155,6 +190,7 @@ public class KioskDAO implements KioskDAOInterface {
 		}//end try		
 		return isExist;//최종적으로 일치하는 계좌가 있으면 1->true 반환, 없으면 0->false 반환.
 	}
+	
 	@Override
 	public void savePoint(KioskDTO savePointDTO) {
 		String sql = "update T4.view1 set column3 = (column3 + ?) where column2 = ? ";
@@ -175,6 +211,7 @@ public class KioskDAO implements KioskDAOInterface {
 		}//end try	
 		
 	}
+	
 	@Override
 	public String viewPoint(KioskDTO savePointDTO) {
 		String sqlFind = "SELECT column3 FROM T4.view1 WHERE column2 = ? ";
@@ -205,6 +242,7 @@ public class KioskDAO implements KioskDAOInterface {
 		return notice;
 		
 	}
+
 
 
 }
