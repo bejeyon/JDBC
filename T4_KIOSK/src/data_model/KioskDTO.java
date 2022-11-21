@@ -28,8 +28,7 @@ public class KioskDTO {
 	private String column2;
 	private int column3;
 	private int profit_margin;
-	
-	
+
 	public String getMenu_id() {
 		return menu_id;
 	}
@@ -109,7 +108,6 @@ public class KioskDTO {
 		this.profit_margin = profit_margin;
 	}
 	public KioskDTO() {
-		// TODO Auto-generated constructor stub
 	}
 	public KioskDTO(String menu_id) {
 		super();

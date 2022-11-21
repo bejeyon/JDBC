@@ -4,13 +4,13 @@ identified by T4;
 grant connect, resource, dba
 to T4;
 
-create table MENU
+create table T4.MENU
 (MENU_ID varchar2(500) PRIMARY KEY,
 MENU_NAME varchar2(500),
 UNIT_COST  number,
 UNIT_PRICE number);
 
-insert into MENU
+insert into T4.MENU
 values (101, '아메리카노', 350, 4000);
 insert into MENU
 values (102, '카페라떼', 400, 5000);
@@ -31,7 +31,7 @@ values (109, '아이스티', 200, 6000);
 insert into MENU
 values (110, '초코라떼', 250, 6000);
 
-CREATE TABLE    ORDER_LIST
+CREATE TABLE    T4.ORDER_LIST
 (ORDER_ID       VARCHAR2(14)    PRIMARY KEY,
 MENU_ID         VARCHAR2(500)   CONSTRAINT menu_id_fk REFERENCES MENU(MENU_ID),
 MENU_NAME       VARCHAR2(500),
@@ -40,7 +40,7 @@ NUM_OF_SALES    NUMBER,
 GUEST_NAME      VARCHAR2(22),
 GUEST_PHONE     VARCHAR2(12));
 
-create table SETTLEMENT
+create table T4.SETTLEMENT
 ( MENU_ID varchar2(500) PRIMARY KEY,
 MENU_NAME varchar2(500),
 NUM_OF_SALES  number,
@@ -48,7 +48,7 @@ UNIT_COST number,
 UNIT_PRICE number,	
 PROFIT_MARGIN number);
 		
-insert into SETTLEMENT
+insert into T4.SETTLEMENT
 values (101, '아메리카노', 11, 350, 4000, 3650);
 insert into SETTLEMENT
 values (102, '카페라떼', 22, 400, 5000, 4600);
@@ -92,12 +92,12 @@ values(207,'초코시럽',10,6000);
 insert into T4.stock
 values(208,'복숭아아이스티',3,6000);
 
-create table MEMBER
+create table T4.MEMBER
 (GUEST_NAME varchar2(500),
 GUEST_PHONE  varchar2(500) PRIMARY KEY,
 GUEST_POINT number default 0);
 
-insert into MEMBER (GUEST_NAME, GUEST_PHONE)
+insert into T4.MEMBER (GUEST_NAME, GUEST_PHONE)
 values ( '옥택연', '0101231234');
 insert into MEMBER (GUEST_NAME, GUEST_PHONE)
 values ('차은우', '0102342345');
