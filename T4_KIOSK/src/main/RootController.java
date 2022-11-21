@@ -39,6 +39,7 @@ public class RootController implements Initializable {
 	@FXML private TextField phonenumber;
 	@FXML private Button savepoint;
 	@FXML private Button viewpoint;
+	static int total = 0;
 	
 	public void handleOrderAction(ActionEvent event) {
 		int americanoCnt = Integer.parseInt(americano.getText());
@@ -61,6 +62,7 @@ public class RootController implements Initializable {
 		System.out.println("아이스티 주문 개수 : " + iceteaCnt);
 		int chocolatelatteCnt = Integer.parseInt(chocolatelatte.getText());
 		System.out.println("아메리카노 주문 개수 : " + chocolatelatteCnt);
+		total = (int) (0.01*(4000*americanoCnt + 5000*cafelatteCnt + 6000*espressoCnt + 3000*milkCnt + 2000*breadCnt + 6000*cakeCnt + 4000*cookieCnt + 2500*macaroonCnt + 6000*iceteaCnt + 6000*chocolatelatteCnt));
 		
 		KioskDAO kioskDAO = new KioskDAO();
 		
@@ -175,21 +177,25 @@ public class RootController implements Initializable {
 		if(!(kioskDAO.memberFindOne(guest_phone))) {
 			kioskDAO.setMember(setMemberDTO);
 		}
-		
-		int americanoCnt = Integer.parseInt(americano.getText());
-		int cafelatteCnt = Integer.parseInt(cafelatte.getText());
-		int espressoCnt = Integer.parseInt(espresso.getText());
-		int milkCnt = Integer.parseInt(milk.getText());
-		int breadCnt = Integer.parseInt(bread.getText());
-		int cakeCnt = Integer.parseInt(cake.getText());
-		int cookieCnt = Integer.parseInt(cookie.getText());
-		int macaroonCnt = Integer.parseInt(macaroon.getText());
-		int iceteaCnt = Integer.parseInt(icetea.getText());
-		int chocolatelatteCnt = Integer.parseInt(chocolatelatte.getText());
-		
-		int point = (int) (0.01*(4000*americanoCnt + 5000*cafelatteCnt + 6000*espressoCnt + 3000*milkCnt + 2000*breadCnt + 6000*cakeCnt + 4000*cookieCnt + 2500*macaroonCnt + 6000*iceteaCnt + 6000*chocolatelatteCnt));
+
+		int point = total;
 		KioskDTO savePointDTO = new KioskDTO(guest_phone, point);
 		kioskDAO.savePoint(savePointDTO);
+		
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				if(point > 0) {
+					orderlist.setText(guest_name + "님,\n멤버십 포인트 " + point + "원 적립되었습니다.");
+					total = 0;
+				}
+				else {
+					orderlist.setText("주문을 먼저 해주세요.");
+					total = 0;
+				}
+			}
+		});
 	}
 
 	

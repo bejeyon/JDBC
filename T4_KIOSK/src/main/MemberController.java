@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import data_model.KioskDAO;
 import data_model.KioskDTO;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,10 +18,10 @@ public class MemberController implements Initializable {
 	@FXML private Label memberlist;
 	@FXML private TextField name;
 	@FXML private TextField phonenumber;
-	@FXML private Button savepoint;
+	@FXML private Button joinmember;
 	@FXML private Button viewpoint;
 	
-	public void handleSavepointAction(ActionEvent event) {
+	public void handleJoinmemberAction(ActionEvent event) {
 		String guest_name = name.getText();
 		String guest_phone = phonenumber.getText();
 		
@@ -29,6 +30,14 @@ public class MemberController implements Initializable {
 		
 		if(!(kioskDAO.memberFindOne(guest_phone))) {
 			kioskDAO.setMember(setMemberDTO);
+		}
+		else {
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {		
+					memberlist.setText("이미 가입되어 있는 회원입니다.");
+				}
+			});
 		}
 	}
 	
@@ -39,9 +48,23 @@ public class MemberController implements Initializable {
 		KioskDAO kioskDAO = new KioskDAO();
 		KioskDTO viewMemberDTO = new KioskDTO(guest_name, guest_phone);
 		
-		String point = kioskDAO.viewPoint(viewMemberDTO);
-		
-		memberlist.setText(point);
+		if(kioskDAO.memberFindOne(guest_phone)) {
+			String point = kioskDAO.viewPoint(viewMemberDTO);
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {		
+					memberlist.setText(point);
+				}
+			});
+		}
+		else {
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {		
+					memberlist.setText("회원을 조회할 수 없습니다.");
+				}
+			});
+		}
 	}
 	
 	@Override

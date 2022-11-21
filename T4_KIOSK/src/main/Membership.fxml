@@ -13,7 +13,7 @@
       <TextField fx:id="name" layoutX="250.0" layoutY="200.0" prefHeight="50.0" prefWidth="250.0" />
       <Label alignment="CENTER_RIGHT" layoutX="100.0" layoutY="250.0" prefHeight="50.0" prefWidth="150.0" text="휴대전화번호" />
       <TextField fx:id="phonenumber" layoutX="250.0" layoutY="250.0" prefHeight="50.0" prefWidth="250.0" />
-      <Button fx:id="savepoint" layoutX="154.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleSavepointAction" text="가입하기" />
+      <Button fx:id="joinmember" layoutX="154.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleJoinmemberAction" text="가입하기" />
       <Button fx:id="viewpoint" layoutX="327.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleViewpointAction" text="조회하기" />
    </children>
 </AnchorPane>
