@@ -1,20 +1,9 @@
+//배재연, 윤희진 페어 프로그래밍_pair programming
+
 package data_model;
 
 public class KioskDTO {   
-	//	1	메뉴ID	MENU_ID
-	//	2	메뉴명	MENU_NAME
-	//	3	원가	UNIT_COST
-	//	4	판매가	UNTI_PRICE
-	//	5	재료ID(PK)	INGREDIENT_ID
-	//	6	원재료명	INGREDIENT_NAME
-	//	7	수량	AVAILABLE_STOCK
-	//	8	주문번호(PK)	ORDER_ID
-	//	9	판매건수	NUM_OF_SALES
-	//	10	주문자(FK)	GUEST_NAME -> column1
-	//	11	주문자 핸드폰(PK)	GUEST_PHONE -> column2
-	//	12	회원Point 	GUEST_POINT -> column3
-	//	13	마진	PROFIT_MARGIN
-	
+
 	private String menu_id;  //메뉴ID 
 	private String menu_name;  //메뉴명 필드
 	private int unit_cost; //단가 필드
@@ -28,7 +17,6 @@ public class KioskDTO {
 	private String column2; // 주문자핸드폰 필드
 	private int column3; // 회원포인트 필드
 	private int profit_margin; //마진 필드
-	
 	
 	public String getMenu_id() {                   //메뉴ID 필드값 getter
 		return menu_id;                                //리턴받을 메뉴ID
@@ -114,9 +102,9 @@ public class KioskDTO {
 		super();                                       
 		this.menu_id = menu_id;   //전역변수의  menu_id = 매개변수로 값을 입력받은  menu_id
 	}
-	public KioskDTO(int ingredient_id) {
+	public KioskDTO(int ingredient_id) {                            //재료ID 매개변수 1개를 받아 값을 집어넣을 setter역할의 KioskDTO 생성자 생성
 		super();
-		this.ingredient_id = ingredient_id;
+		this.ingredient_id = ingredient_id;   //전역변수의  ingredient_id = 매개변수로 값을 입력받은  ingredient_id
 	}
 	public KioskDTO(String order_id, String menu_id, String menu_name, int unit_price, int num_of_sales) { //메뉴ID,메뉴명,판매가,주문번호,판매건수의 매개변수 5개를 받아 값을 넣을 setter 역활 생성자
 		super();
