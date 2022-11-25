@@ -33,8 +33,7 @@ public class KioskMain extends Application {//메인 클래스는 반드시 Appl
 		launch(args);	// KioskMain 객체 생성 및 메인 윈도우 생성.
 		/*start 메소드는 직접 호출할 수 X. 메인 클래스에서 main() 메소드를 만들어서 main() 메소드에서 Application class가 갖고 있는 static method인 launch()를 호출하게 해서 내부적으로 start()를 호출하게 해줘야 함.
 		이유 : javafx Application은 UI를 생성하는 쓰레드가 별도로 있음. 그래서 main을 실행시켜주는 main 쓰레드 이외에 UI 생성용 쓰레드를 별도로 가지고 있음. 그게 javafx Application 쓰레드.
-		그 쓰레드를 launch() 메소드 안에서 만듦. -> 만들어서 javafx Application 쓰레드가 start() 메소드를 호출.
-		 */
+		그 쓰레드를 launch() 메소드 안에서 만듦. -> 만들어서 javafx Application 쓰레드가 start() 메소드를 호출.*/
 	}
 
 }
