@@ -23,14 +23,10 @@ public class CheckController implements Initializable {
 	
 	@FXML private Button savepoint;//적립하기 버튼 객체 주입
 	@FXML private Button exit;//종료하기 버튼 객체 주입
-	
-	private Stage primaryStage;//커스텀 다이얼로그인 Membership.fxml을 띄우기 위한 사전 작업으로 Stage 필드값 직접 생성. 컨트롤러에서 다이얼로그를 실행할 때는 소유자 윈도우가 될 primaryStage가 필요.
-	
-	public void setPrimaryStage(Stage primaryStage) {//커스텀 다이얼로그인 Membership.fxml을 띄우기 위한 사전 작업으로 Stage 세팅 메소드 직접 생성. 컨트롤러에서 다이얼로그를 실행할 때는 소유자 윈도우가 될 primaryStage가 필요.
-		this.primaryStage = primaryStage;
-	}
-	
+		
 	public void handleSavepointAction(ActionEvent event) throws Exception {//적립하기 버튼 클릭 시 발생하는 이벤트 조작 메소드
+
+		Stage primaryStage = (Stage)savepoint.getScene().getWindow();//커스텀 다이얼로그인 Membership.fxml을 띄우기 위한 사전 작업으로 Stage 필드값 직접 생성. 컨트롤러에서 다이얼로그를 실행할 때는 소유자 윈도우가 될 primaryStage가 필요.
 
 		// 커스텀 다이얼로그 실행
 		Stage dialog = new Stage(StageStyle.UTILITY);//다이얼로그 Stage 생성.

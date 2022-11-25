@@ -23,8 +23,7 @@ import javafx.scene.layout.AnchorPane;//커스텀 다이얼로그인 CheckContro
 import javafx.stage.Modality;//주문버튼 클릭 시 포인트 적립 여부를 확인하는 커스텀 다이얼로그인 CheckController.fxml을 Stage로 직접 띄우기 위해 javafx.stage.Modality import
 import javafx.stage.Stage;//주문버튼 클릭 시 포인트 적립 여부를 확인하는 커스텀 다이얼로그인 CheckController.fxml을 Stage로 직접 띄우기 위해 javafx.stage.Stage import
 import javafx.stage.StageStyle;/*주문버튼 클릭 시 포인트 적립 여부를 확인하는 커스텀 다이얼로그인 CheckController.fxml Stage로 직접 띄우기 위해 javafx.stage.StageStyle import
-Stage의 생성자 매개값에는 윈도우 스타일을 결정짓는 StageStyle 열거 상수가 옴. 본 코드에서 쓴 StageStyle 열거상수 UTILITY는 배경이 흰 색이고, 제목줄에 타이틀, 종료 버튼만 있음.
-*/
+Stage의 생성자 매개값에는 윈도우 스타일을 결정짓는 StageStyle 열거 상수가 옴. 본 코드에서 쓴 StageStyle 열거상수 UTILITY는 배경이 흰 색이고, 제목줄에 타이틀, 종료 버튼만 있음.*/
 
 public class RootController implements Initializable {//컨트롤러 클래스는 Initializable 인터페이스를 반드시 상속받아야함.
 	@FXML private TextField americano;//아메리카노 개수 입력 텍스트 필드 객체 주입
@@ -53,14 +52,7 @@ public class RootController implements Initializable {//컨트롤러 클래스�
 	int chocolatelatteCnt = 0;//초코라떼 주문 수량 입력할 필드 선언
 	
 	static int total = 0;/*주문액의 총 1%인 포인트값을 저장할 변수 total 선언. RootController뿐만 아니라 MemberController에서 포인트 적립 시에도 사용되는 필드값이므로 어디서나 값이 유지되도록 static으로 변수 선언.
-	만약 이 값이 0이면 주문을 하지 않은 상태로 주문하기 버튼이나 포인트 적립하기 버튼을 누른 것이므로 경고문구를 띄울 수 있는 등 다양하게 이용가능.
-	*/
-	
-	private Stage primaryStage;//커스텀 다이얼로그인 CheckController.fxml을 띄우기 위한 사전 작업으로 Stage 필드값 직접 생성. 컨트롤러에서 다이얼로그를 실행할 때는 소유자 윈도우가 될 primaryStage가 필요.
-	
-	public void setPrimaryStage(Stage primaryStage) {//커스텀 다이얼로그인 CheckController.fxml을 띄우기 위한 사전 작업으로 Stage 세팅 메소드 직접 생성. 컨트롤러에서 다이얼로그를 실행할 때는 소유자 윈도우가 될 primaryStage가 필요.
-		this.primaryStage = primaryStage;
-	}
+	만약 이 값이 0이면 주문을 하지 않은 상태로 주문하기 버튼이나 포인트 적립하기 버튼을 누른 것이므로 경고문구를 띄울 수 있는 등 다양하게 이용가능.*/
 	
 	public void handleOrderAction(ActionEvent event) {//주문하기 버튼 클릭 시 발생하는 이벤트 조작 메소드
 
@@ -394,6 +386,8 @@ public class RootController implements Initializable {//컨트롤러 클래스�
 			}
 			
 		});
+		
+		Stage primaryStage = (Stage)order.getScene().getWindow();//커스텀 다이얼로그인 Membership.fxml을 띄우기 위한 사전 작업으로 Stage 필드값 직접 생성. 컨트롤러에서 다이얼로그를 실행할 때는 소유자 윈도우가 될 primaryStage가 필요.
 		
 		// 커스텀 다이얼로그 실행
 		Stage dialog = new Stage(StageStyle.UTILITY);//다이얼로그 Stage 생성.
