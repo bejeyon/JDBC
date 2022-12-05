@@ -1,3 +1,5 @@
 INDEX VERSION 1.131
+C:\workspace_jdbc\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\611778587.index
+\test_web\src\main\java
 C:\workspace_jdbc\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2567269413.index
 \Oracle_ATP_JDBC_DBCP_Datasource_22_9\src
